@@ -1,0 +1,72 @@
+# Spark Messaging 프로젝트 규칙
+
+## 프로젝트 구조
+- Frontend: Preact + Vite (spark-messaging-demo)
+- Server: Node.js 백엔드 서버 (spark-messaging-server)
+- Client: @skybaer0804/spark-messaging-client npm 패키지 (spark-messaging-client)
+- Docs: 마크다운 기반 문서화 프로젝트 (docs)
+
+## 개발 규칙
+- 항상 한국어로 응답
+- UI 컴포넌트와 로직을 함께 모듈화 (prop 전달 최소화)
+- 레이아웃 모듈화 시 children 및 이벤트 prop으로 전달
+- MUI 사용 시 7버전 이상 문법 사용
+- 반응형 고려하여 Grid 우선 사용
+
+## 코드 스타일
+- TypeScript 사용
+- Preact hooks 사용
+- 함수형 컴포넌트 선호
+
+## 프로젝트별 규칙
+
+### 📱 Frontend Demo (spark-messaging-demo)
+- Preact + Vite 기반 프론트엔드 데모 애플리케이션
+- Client SDK를 사용하여 실시간 메시징 기능 구현
+- 데모 목적이므로 사용 예제와 UI/UX에 집중
+- Client SDK 버전 업데이트 시 즉시 반영하여 최신 기능 테스트
+
+### 🔧 Server (spark-messaging-server)
+- Node.js 기반 백엔드 서버
+- Socket.IO를 사용한 실시간 통신 서버
+- API 변경 시 Client SDK와 Frontend Demo에 영향도 확인 필수
+- API 문서화는 Docs 프로젝트에 마크다운으로 작성
+
+### 📦 Client (spark-messaging-client)
+- npm 패키지로 배포되는 SDK 라이브러리
+- **버전 관리 필수 규칙:**
+  - 기능 개선, 새로운 기능 추가, 버그 수정 등 변경사항 발생 시 반드시 `package.json`의 `version` 필드 업데이트
+  - 버전 번호는 [Semantic Versioning](https://semver.org/) 규칙 준수:
+    - **MAJOR** (X.0.0): 호환되지 않는 API 변경
+    - **MINOR** (0.X.0): 하위 호환되는 기능 추가
+    - **PATCH** (0.0.X): 하위 호환되는 버그 수정
+  - 버전 업데이트 후 `npm run build` 실행하여 빌드 확인
+  - 버전 변경 시 Frontend Demo의 `package.json`에서 Client SDK 버전도 함께 업데이트
+  - 변경사항은 `CHANGELOG.md` 또는 Docs 프로젝트에 기록 권장
+
+### 📚 Docs (docs)
+- 마크다운(.md) 파일 기반 자동 웹 문서화 프로젝트
+- `.md` 파일은 자동으로 웹 문서로 변환됨
+- 문서 작성 가이드:
+  - **포트폴리오**: 프로젝트 소개, 기술 스택, 주요 기능 등
+  - **기능 문서**: 각 프로젝트의 기능 상세 설명, 사용법, API 문서
+  - **설정 가이드**: 개발 환경 설정, 배포 가이드 등
+  - **변경 이력**: 버전별 변경사항, 마이그레이션 가이드 등
+- 새로운 기능 추가 시 관련 문서도 함께 작성
+- Client SDK 버전 업데이트 시 변경사항 문서화 필수
+
+## 프로젝트 간 연동
+- SDK 변경 시 프론트엔드 데모에 반영 확인
+- 백엔드 API 변경 시 프론트엔드 및 SDK 확인
+- 타입 정의는 SDK에서 제공하도록 권장
+- 여러 프로젝트를 함께 검토하여 일관성 유지
+- Client SDK 버전 업데이트 시:
+  1. `package.json` 버전 업데이트
+  2. 빌드 및 테스트 수행
+  3. Frontend Demo의 Client SDK 버전 업데이트
+  4. Docs에 변경사항 문서화
+
+## 파일 접근
+- 절대 경로로 다른 프로젝트 파일 접근 가능
+- 프로젝트 간 의존성 변경 시 모든 관련 프로젝트 확인
+
